@@ -59,7 +59,7 @@ function source() {
             buttons.appendChild(run);
 
             let child = source_container.childNodes[0];
-            source_container.insertBefore(buttons[0], child);
+            source_container.insertBefore(buttons, child);
         });
 }
 
