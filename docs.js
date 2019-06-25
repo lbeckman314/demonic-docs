@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function source() {
-    let source = new Request('doc-demonstration.md');
+    let source = new Request('docs-demonstration.md');
 
     const source_container = document.createElement('div');
     const source_header = document.createElement('h2');
