@@ -48,7 +48,7 @@ function source() {
             });
 
             // compile/run button
-            let buttons = document.createElement('button');
+            let buttons = document.createElement('div');
             buttons.className ='buttons';
 
             let run = document.createElement('button');
