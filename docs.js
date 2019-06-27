@@ -26,6 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function source() {
     let source = new Request('docs-demonstration.md');
+    let url = window.location.href;
+    console.log('URL:', url);
+    url = url.split('/');
+    console.log('URL:', url);
+    url = url[url.length - 1];
+    console.log('URL:', url);
+    url = url.replace('html', 'md');
+    console.log('URL:', url);
+    source = url;
 
     const source_container = document.createElement('div');
     const source_header = document.createElement('h2');
