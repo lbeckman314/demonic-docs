@@ -80,46 +80,140 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <!-- Demo and Codemirror bits -->
   <script src="demo.bundle.js"></script>
   <script src="docs.bundle.js"></script>
-  <link rel="stylesheet" href="demo.css">
-
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Demo CodeMirror Demonstration</h1>
 </header>
 <p>This is a demonstration of the <a href="https://github.com/lbeckman314/demo">demo</a> project, specifically by running code snippets from a markdown-converted document.</p>
-<p>demo was inspired by <a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a>, which is a great Rust documentation project. In mdbook, you can run Rust code right from the document (e.g. <a href="https://doc.rust-lang.org/book/ch02-00-guessing-game-tutorial.html#printing-values-with-println-placeholders"><em>Printing values with println! Placeholders</em></a>)! I really liked this feature, but wanted to be able to send input back to the running process.</p>
-<p>You can even edit this page’s source and compile a whole new document! Give it a go by selecting the ‘Edit Source’ button and then clicking the ‘▶’ button below <a href="#source">Source</a>.</p>
-<button id="edit-source">
-Edit Source
-</button>
-<h2 id="python">Python</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">def</span> greet():</a>
-<a class="sourceLine" id="cb1-2" title="2">    name <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Enter your name: &#39;</span>)</a>
-<a class="sourceLine" id="cb1-3" title="3">    <span class="bu">print</span>(<span class="st">&#39;Hello&#39;</span>, name)</a>
-<a class="sourceLine" id="cb1-4" title="4"></a>
-<a class="sourceLine" id="cb1-5" title="5"><span class="kw">def</span> main():</a>
-<a class="sourceLine" id="cb1-6" title="6">    greet()</a>
-<a class="sourceLine" id="cb1-7" title="7"></a>
-<a class="sourceLine" id="cb1-8" title="8">main()</a></code></pre></div>
-
+<p>demo was inspired by <a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a>, which is a great Rust documentation project. In mdbook, you can edit and run Rust code right from the document (e.g. <a href="https://doc.rust-lang.org/rust-by-example/std_misc/threads/testcase_mapreduce.html#testcase-map-reduce"><em>Testcase: map-reduce</em></a>! I really liked this feature, but wanted to be able to send input back to the running process.</p>
 <h2 id="c">C</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb2-1" title="1"><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></a>
-<a class="sourceLine" id="cb2-2" title="2"></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="dt">int</span> main() {</a>
-<a class="sourceLine" id="cb2-4" title="4">    fprintf(stderr, <span class="st">&quot;%s&quot;</span>, <span class="st">&quot;Enter your name: &quot;</span>);</a>
-<a class="sourceLine" id="cb2-5" title="5">    <span class="dt">char</span> name[<span class="dv">100</span>];</a>
-<a class="sourceLine" id="cb2-6" title="6">    scanf(<span class="st">&quot;%s&quot;</span>, name);</a>
-<a class="sourceLine" id="cb2-7" title="7"></a>
-<a class="sourceLine" id="cb2-8" title="8">    fprintf(stderr, <span class="st">&quot;Hello %s!</span><span class="sc">\n</span><span class="st">&quot;</span>, name);</a>
-<a class="sourceLine" id="cb2-9" title="9">    <span class="cf">return</span> <span class="dv">0</span>;</a>
-<a class="sourceLine" id="cb2-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><a class="sourceLine" id="cb1-1" title="1"><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</a>
+<a class="sourceLine" id="cb1-4" title="4">    fprintf(stderr, <span class="st">&quot;%s&quot;</span>, <span class="st">&quot;Enter your name: &quot;</span>);</a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="dt">char</span> name[<span class="dv">100</span>];</a>
+<a class="sourceLine" id="cb1-6" title="6">    scanf(<span class="st">&quot;%s&quot;</span>, name);</a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8">    fprintf(stderr, <span class="st">&quot;Hello %s!</span><span class="sc">\n</span><span class="st">&quot;</span>, name);</a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="cf">return</span> <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-10" title="10">}</a></code></pre></div>
+<h2 id="c-1">C++</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" title="1"><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="pp">#include </span><span class="im">&lt;string&gt;</span></a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">using</span> <span class="bu">std::</span>cin;</a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">using</span> <span class="bu">std::</span>cout;</a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="kw">using</span> <span class="bu">std::</span>endl;</a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="kw">using</span> <span class="bu">std::</span>string;</a>
+<a class="sourceLine" id="cb2-8" title="8"></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</a>
+<a class="sourceLine" id="cb2-10" title="10">    string name;</a>
+<a class="sourceLine" id="cb2-11" title="11">    cout &lt;&lt; <span class="st">&quot;What is your name? &quot;</span>;</a>
+<a class="sourceLine" id="cb2-12" title="12">    cin &gt;&gt; name;</a>
+<a class="sourceLine" id="cb2-13" title="13">    cout &lt;&lt; <span class="st">&quot;Hello &quot;</span> &lt;&lt; name &lt;&lt; <span class="st">&quot;!&quot;</span> &lt;&lt; endl;</a>
+<a class="sourceLine" id="cb2-14" title="14">}</a></code></pre></div>
+<h2 id="go">Go</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode go"><code class="sourceCode go"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">package</span> main</a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">import</span> (</a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="st">&quot;fmt&quot;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="st">&quot;bufio&quot;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="st">&quot;os&quot;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="st">&quot;strings&quot;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">)</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">func</span> main() {</a>
+<a class="sourceLine" id="cb3-11" title="11">    fmt.Print(<span class="st">&quot;What is your name? &quot;</span>)</a>
+<a class="sourceLine" id="cb3-12" title="12">    reader := bufio.NewReader(os.Stdin)</a>
+<a class="sourceLine" id="cb3-13" title="13">    name,_ := reader.ReadString(<span class="ch">&#39;\n&#39;</span>)</a>
+<a class="sourceLine" id="cb3-14" title="14">    name = strings.Replace(name, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="dv">-1</span>);</a>
+<a class="sourceLine" id="cb3-15" title="15">    fmt.Printf(<span class="st">&quot;Hello %s!</span><span class="ch">\n</span><span class="st">&quot;</span>, name)</a>
+<a class="sourceLine" id="cb3-16" title="16">}</a></code></pre></div>
+<h2 id="java">Java</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode java"><code class="sourceCode java"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">import</span><span class="im"> java.util.Scanner;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">public</span> <span class="kw">class</span> Hello {</a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</a>
+<a class="sourceLine" id="cb4-5" title="5">        <span class="bu">Scanner</span> reader = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="bu">System</span>.<span class="fu">in</span>);</a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">print</span>(<span class="st">&quot;What is your name? &quot;</span>);</a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="bu">String</span> name = reader.<span class="fu">nextLine</span>();</a>
+<a class="sourceLine" id="cb4-8" title="8">        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hello &quot;</span> + name + <span class="st">&quot;!&quot;</span>);</a>
+<a class="sourceLine" id="cb4-9" title="9">        reader.<span class="fu">close</span>();</a>
+<a class="sourceLine" id="cb4-10" title="10">    }</a>
+<a class="sourceLine" id="cb4-11" title="11">}</a></code></pre></div>
+<h2 id="javascript-browser">JavaScript (Browser)</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode javascript browser"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">function</span> <span class="at">greet</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">    <span class="kw">const</span> name <span class="op">=</span> <span class="at">prompt</span>(<span class="st">&#39;What is your name? &#39;</span><span class="op">,</span> <span class="st">&#39;Mysterious stranger&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">let</span> terminal <span class="op">=</span> <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;.terminals&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4"></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="kw">let</span> from_server <span class="op">=</span> <span class="va">document</span>.<span class="at">createElement</span>(<span class="st">&quot;span&quot;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="va">from_server</span>.<span class="at">className</span> <span class="op">=</span> <span class="st">&quot;from_server&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="va">from_server</span>.<span class="at">innerHTML</span> <span class="op">=</span> <span class="vs">`Hello </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">!</span><span class="sc">\n</span><span class="vs">`</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="va">from_server</span>.<span class="at">contentEditable</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="va">terminal</span>.<span class="at">appendChild</span>(from_server)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="op">}</span></a>
+<a class="sourceLine" id="cb5-11" title="11"></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="at">greet</span>()<span class="op">;</span></a></code></pre></div>
+<h2 id="javascript-node.js">JavaScript (Node.js)</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">const</span> readline<span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;readline&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="kw">const</span> readline_interface <span class="op">=</span> <span class="va">readline</span>.<span class="at">createInterface</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="dt">input</span><span class="op">:</span> <span class="va">process</span>.<span class="at">stdin</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="dt">output</span><span class="op">:</span> <span class="va">process</span>.<span class="at">stdout</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7"></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="va">readline_interface</span>.<span class="at">question</span>(<span class="st">&#39;What is your name? &#39;</span><span class="op">,</span> name <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="va">console</span>.<span class="at">log</span>(<span class="vs">`Hello </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">!`</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10"></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="va">readline_interface</span>.<span class="at">close</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="va">process</span>.<span class="at">exit</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="op">}</span>)</a></code></pre></div>
+<h2 id="python">Python</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">def</span> greet():</a>
+<a class="sourceLine" id="cb7-2" title="2">    name <span class="op">=</span> <span class="bu">input</span>(<span class="st">&#39;Enter your name: &#39;</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="bu">print</span>(<span class="st">&#39;Hello&#39;</span>, name)</a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</a>
+<a class="sourceLine" id="cb7-6" title="6">    greet()</a></code></pre></div>
+<h2 id="ruby">Ruby</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode ruby"><code class="sourceCode ruby"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">def</span> greet()</a>
+<a class="sourceLine" id="cb8-2" title="2">  print <span class="st">&#39;What is your name ? &#39;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="dt">STDOUT</span>.flush</a>
+<a class="sourceLine" id="cb8-4" title="4">  name = gets</a>
+<a class="sourceLine" id="cb8-5" title="5">  name = name.chomp</a>
+<a class="sourceLine" id="cb8-6" title="6">  puts <span class="st">&#39;Hello &#39;</span> + name + <span class="ch">&#39;!&#39;</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="kw">end</span></a>
+<a class="sourceLine" id="cb8-8" title="8"></a>
+<a class="sourceLine" id="cb8-9" title="9">greet()</a></code></pre></div>
+<h2 id="rust">Rust</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode rust"><code class="sourceCode rust"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">use</span> <span class="pp">std::io::</span>stdin;</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">use</span> <span class="pp">std::io::</span>stdout;</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">use</span> <span class="pp">std::io::</span>Write;</a>
+<a class="sourceLine" id="cb9-4" title="4"></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="kw">fn</span> greet() <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="kw">let</span> <span class="kw">mut</span> name = <span class="dt">String</span>::new();</a>
+<a class="sourceLine" id="cb9-7" title="7">    <span class="pp">print!</span>(<span class="st">&quot;What is your name? &quot;</span>);</a>
+<a class="sourceLine" id="cb9-8" title="8">    <span class="kw">let</span> _ = stdout().flush();</a>
+<a class="sourceLine" id="cb9-9" title="9">    stdin().read_line(&amp;<span class="kw">mut</span> name)</a>
+<a class="sourceLine" id="cb9-10" title="10">        .ok()</a>
+<a class="sourceLine" id="cb9-11" title="11">        .expect(<span class="st">&quot;Error in reading stdin.&quot;</span>);</a>
+<a class="sourceLine" id="cb9-12" title="12"></a>
+<a class="sourceLine" id="cb9-13" title="13">    <span class="kw">if</span> <span class="kw">let</span> <span class="cn">Some</span>(<span class="ch">&#39;</span><span class="sc">\n</span><span class="ch">&#39;</span>) = name.chars().next_back() <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-14" title="14">        name.pop();</a>
+<a class="sourceLine" id="cb9-15" title="15">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-16" title="16">    <span class="pp">println!</span>(<span class="st">&quot;Hello {}!&quot;</span>, name);</a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="op">}</span></a>
+<a class="sourceLine" id="cb9-18" title="18"></a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="kw">fn</span> main() <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-20" title="20">    greet();</a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="op">}</span></a></code></pre></div>
 <h2 id="support-and-roadmap">Support and Roadmap</h2>
 <p>This project aims to allow unmodified markdown files to have editable and runnable code blocks. But there needs to be a way for users to tell which program blocks they want to run and which they don’t. Unfortunately, this requires a modification to the markdown files! In this instance, the following markdown code had a “.norun” class addition, which tells demo not to add a “▶” button to the code block.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode markdown norun"><code class="sourceCode markdown"><a class="sourceLine" id="cb3-1" title="1"><span class="bn">    ```{.python .norun}</span></a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="bn">    print(&quot;Don&#39;t run me!&quot;)</span></a>
-<a class="sourceLine" id="cb3-3" title="3"><span class="bn">    ```</span></a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python norun"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1"><span class="bu">print</span>(<span class="st">&quot;Don&#39;t run me!&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode markdown norun"><code class="sourceCode markdown"><a class="sourceLine" id="cb10-1" title="1"><span class="bn">    ```{.python .norun}</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="bn">    print(&quot;Don&#39;t run me!&quot;)</span></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="bn">    ```</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python norun"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" title="1"><span class="bu">print</span>(<span class="st">&quot;Don&#39;t run me!&quot;</span>)</a></code></pre></div>
 <p>Markdown files converted by <a href="https://pandoc.org/">Pandoc</a> are the only supported format currently, but I’d like to add lots of others! I’d like to add the following features:</p>
 <ul>
 <li>Add more documentation. This is a documentation project at heart!</li>
@@ -136,5 +230,10 @@ Edit Source
 <li>If you have any other suggestions, let me know at <a href="https://github.com/lbeckman314/demo/issues">this</a> issue reporter or by e-mail. I’m available at <a href="mailto:liam@liambeckman.com">liam@liambeckman.com</a> : )</li>
 </ul>
 <p>Adding support requires playing around with the resulting DOM structure of each converter and file type, and being able to extract the <code>language</code> and <code>code</code> of each code block.</p>
+<hr />
+<p>You can even edit this page’s source and compile a whole new document! Give it a go by selecting the ‘Edit Source’ button and then clicking the ‘▶’ button below <a href="#source">Source</a>.</p>
+<button id="edit-source">
+Edit Source
+</button>
 </body>
 </html>

@@ -6,9 +6,111 @@ This is a demonstration of the [demo](https://github.com/lbeckman314/demo) proje
 
 demo was inspired by [mdbook](https://github.com/rust-lang-nursery/mdBook), which is a great Rust documentation project. In mdbook, you can edit and run Rust code right from the document (e.g. [*Testcase: map-reduce*](https://doc.rust-lang.org/rust-by-example/std_misc/threads/testcase_mapreduce.html#testcase-map-reduce)! I really liked this feature, but wanted to be able to send input back to the running process.
 
-You can even edit this page's source and compile a whole new document! Give it a go by selecting the 'Edit Source' button and then clicking the '▶' button below [Source](#source).
+## C
 
-<button id="edit-source">Edit Source</button>
+```c
+#include <stdio.h>
+
+int main(int argc, char** argv) {
+    fprintf(stderr, "%s", "Enter your name: ");
+    char name[100];
+    scanf("%s", name);
+
+    fprintf(stderr, "Hello %s!\n", name);
+    return 0;
+}
+```
+
+## C++
+
+```c++
+#include <iostream>
+#include <string>
+
+using std::cin;
+using std::cout;
+using std::endl;
+using std::string;
+
+int main(int argc, char** argv) {
+    string name;
+    cout << "What is your name? ";
+    cin >> name;
+    cout << "Hello " << name << "!" << endl;
+}
+```
+
+## Go
+
+```go
+package main
+
+import (
+    "fmt"
+    "bufio"
+    "os"
+    "strings"
+)
+
+func main() {
+    fmt.Print("What is your name? ")
+    reader := bufio.NewReader(os.Stdin)
+    name,_ := reader.ReadString('\n')
+    name = strings.Replace(name, "\n", "", -1);
+    fmt.Printf("Hello %s!\n", name)
+}
+```
+
+## Java
+
+```java
+import java.util.Scanner;
+
+public class Hello {
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        System.out.print("What is your name? ");
+        String name = reader.nextLine();
+        System.out.println("Hello " + name + "!");
+        reader.close();
+    }
+}
+```
+
+## JavaScript (Browser)
+
+```{.javascript .browser}
+function greet() {
+    const name = prompt('What is your name? ', 'Mysterious stranger');
+    let terminal = document.querySelector('.terminals');
+
+    let from_server = document.createElement("span");
+    from_server.className = "from_server";
+    from_server.innerHTML = `Hello ${name}!\n`;
+    from_server.contentEditable = false;
+    terminal.appendChild(from_server);
+}
+
+greet();
+```
+
+## JavaScript (Node.js)
+
+```javascript
+const readline= require('readline');
+
+const readline_interface = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
+readline_interface.question('What is your name? ', name => {
+    console.log(`Hello ${name}!`);
+
+    readline_interface.close();
+    process.exit();
+})
+```
 
 ## Python
 
@@ -17,24 +119,47 @@ def greet():
     name = input('Enter your name: ')
     print('Hello', name)
 
-def main():
+if __name__ == '__main__':
     greet()
-
-main()
 ```
 
-## C
+## Ruby
 
-```c
-#include <stdio.h>
+```ruby
+def greet()
+  print 'What is your name ? '
+  STDOUT.flush
+  name = gets
+  name = name.chomp
+  puts 'Hello ' + name + '!'
+end
 
-int main() {
-    fprintf(stderr, "%s", "Enter your name: ");
-    char name[100];
-    scanf("%s", name);
+greet()
+```
 
-    fprintf(stderr, "Hello %s!\n", name);
-    return 0;
+## Rust
+
+```rust
+use std::io::stdin;
+use std::io::stdout;
+use std::io::Write;
+
+fn greet() {
+    let mut name = String::new();
+    print!("What is your name? ");
+    let _ = stdout().flush();
+    stdin().read_line(&mut name)
+        .ok()
+        .expect("Error in reading stdin.");
+
+    if let Some('\n') = name.chars().next_back() {
+        name.pop();
+    }
+    println!("Hello {}!", name);
+}
+
+fn main() {
+    greet();
 }
 ```
 
@@ -68,3 +193,9 @@ Markdown files converted by [Pandoc](https://pandoc.org/) are the only supported
 - If you have any other suggestions, let me know at [this](https://github.com/lbeckman314/demo/issues) issue reporter or by e-mail. I'm available at [liam@liambeckman.com](mailto:liam@liambeckman.com) : )
 
 Adding support requires playing around with the resulting DOM structure of each converter and file type, and being able to extract the `language` and `code` of each code block.
+
+---
+
+You can even edit this page's source and compile a whole new document! Give it a go by selecting the 'Edit Source' button and then clicking the '▶' button below [Source](#source).
+
+<button id="edit-source">Edit Source</button>

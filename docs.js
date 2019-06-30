@@ -1,15 +1,19 @@
 import CodeMirror from 'codemirror';
-import 'codemirror/mode/python/python.js';
-import 'codemirror/mode/clike/clike.js';
-import 'codemirror/mode/markdown/markdown.js';
-import 'codemirror/mode/javascript/javascript.js';
-import 'codemirror/theme/dracula.css';
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/clike/clike.js';
+import 'codemirror/mode/go/go.js';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/markdown/markdown.js';
+import 'codemirror/mode/python/python.js';
+import 'codemirror/mode/ruby/ruby.js';
+import 'codemirror/mode/rust/rust.js';
+import 'codemirror/theme/dracula.css';
 import './demo.css';
 
 import {bootup} from './demo.bundle.js';
 
 export {termInit};
+
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log('Converting to codemirror.');
@@ -22,18 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
             sourced = true;
         }
     };
+
+    const ev = `
+const name = prompt('What is your name? ');
+console.log(\`Hello \${name}!\`);
+`
+
+    //eval(ev);
 });
 
 function source() {
     let source = new Request('docs-demonstration.md');
     let url = window.location.href;
-    console.log('URL:', url);
     url = url.split('/');
-    console.log('URL:', url);
     url = url[url.length - 1];
-    console.log('URL:', url);
     url = url.replace('html', 'md');
-    console.log('URL:', url);
     source = url;
 
     const source_container = document.createElement('div');
@@ -84,8 +91,19 @@ function pandoc_to_codemirror() {
 
         // mode
         let mode = myTextArea.classList[1];
+        let domain;
+        if (myTextArea.classList[2]) {
+            domain = myTextArea.classList[2];
+        }
+        console.log('myTextArea:', myTextArea.classList);
         if (mode == 'c') {
             mode = 'text/x-csrc';
+        }
+        else if (mode == 'c++' || mode == 'cpp') {
+            mode = 'text/x-c++src';
+        }
+        else if (mode == 'java') {
+            mode = 'text/x-java';
         }
 
         // codemirror
@@ -99,6 +117,11 @@ function pandoc_to_codemirror() {
             viewportMargin: Infinity,
             lineWrapping: true,
         });
+
+        if (mode === 'javascript' && domain === 'browser') {
+            console.log('javascript mode.');
+            editor.domain = 'browser';
+        }
 
         console.log('identifier:', identifier);
         console.log('mode:', mode);
@@ -144,7 +167,10 @@ function termInit(element) {
     let ed = element.parentNode.parentNode.childNodes[1].CodeMirror;
     let code = ed.getValue();
 
-    let language = ed.getMode().name;
+    let language = ed.getOption('mode');
+    console.log('language:', language);
+    let domain = ed.domain;
+    console.log('domain:', domain);
     let terminal;
 
     if (! ed_parent.querySelector('#terminal')) {
@@ -171,6 +197,7 @@ function termInit(element) {
         code: code,
         language: language,
         terminal: terminal,
+        domain, domain,
     }
 
     bootup(args);
