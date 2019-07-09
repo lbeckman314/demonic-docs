@@ -203,3 +203,41 @@ function termInit(element) {
     bootup(args);
 }
 
+
+function openBuffer(name, text, mode) {
+  buffers[name] = CodeMirror.Doc(text, mode);
+  var opt = document.createElement("option");
+  opt.appendChild(document.createTextNode(name));
+  sel_top.appendChild(opt);
+}
+
+function newBuf(where) {
+  var name = prompt("Name for the buffer", "*scratch*");
+  if (name == null) return;
+  if (buffers.hasOwnProperty(name)) {
+    alert("There's already a buffer by that name.");
+    return;
+  }
+  openBuffer(name, "", "javascript");
+  selectBuffer(where == "top" ? ed_top : ed_bot, name);
+  sel.value = name;
+}
+
+function selectBuffer(editor, name) {
+  var buf = buffers[name];
+  if (buf.getEditor()) buf = buf.linkedDoc({sharedHist: true});
+  var old = editor.swapDoc(buf);
+  var linked = old.iterLinkedDocs(function(doc) {linked = doc;});
+  if (linked) {
+    // Make sure the document in buffers is the one the other view is looking at
+    for (var name in buffers) if (buffers[name] == old) buffers[name] = linked;
+    old.unlinkDoc(linked);
+  }
+  editor.focus();
+}
+
+function nodeContent(id) {
+  var node = document.getElementById(id), val = node.textContent || node.innerText;
+  val = val.slice(val.match(/^\s*/)[0].length, val.length - val.match(/\s*$/)[0].length) + "\n";
+  return val;
+}
