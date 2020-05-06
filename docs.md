@@ -206,6 +206,19 @@ The command to convert `docs-demonstration.md` to `docs-demonstration.html` is:
 pandoc -f markdown -t html -s docs-demonstration.md -o docs-demonstration.html -H header.html
 ```
 
+## Markdown
+```markdown
+---
+title: Oregon Mountains
+---
+
+Some *moutains* in **Oregon** include:
+
+- Mt. Hood
+- Mt. Jefferson
+- The Three Sisters
+```
+
 You can even edit this page's source and compile a whole new document! Give it a go by selecting the 'Edit Source' button and then clicking the '▶' button below [Source](#source).
 
 <button id="edit-source">Edit Source</button>

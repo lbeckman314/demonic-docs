@@ -81,28 +81,4 @@ p, li {
     font-family: DejaVu Serif;
     color: snow;
 }
-#duplicate-terminal:hover {
-    background-color: #4635f7;
-    border: 1px solid #4635f7;
-    transition: 800ms;
-    cursor: pointer;
-}
-#remove-terminal:hover {
-    background-color: crimson;
-    border: 1px solid crimson;
-    transition: 800ms;
-    cursor: pointer;
-}
-#duplicate-terminal, #remove-terminal {
-    border: 1px dashed grey;
-    width: 2em;
-    height: 2em;
-    border-radius: 50%;
-    display: inline-block;
-    text-align: center;
-    margin-top: 0.5em;
-    transition: 800ms;
-    color: snow;
-    font-size: 1em;
-    line-height: 1.7;
-}
+

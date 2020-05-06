@@ -1,4 +1,4 @@
-import CodeMirror from 'codemirror';
+import CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/clike/clike.js';
 import 'codemirror/mode/go/go.js';
@@ -8,53 +8,40 @@ import 'codemirror/mode/python/python.js';
 import 'codemirror/mode/ruby/ruby.js';
 import 'codemirror/mode/rust/rust.js';
 import 'codemirror/theme/dracula.css';
-import './demo.css';
 
-import {bootup} from './demo.bundle.js';
-
-export {termInit};
-
+import {bootup} from './web.bundle.js';
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('Converting to codemirror.');
-    pandoc_to_codemirror();
+    pandocToCodemirror();
     let sourced = false;
     document.getElementById('edit-source').onclick = () => {
-        console.log('click');
-        if (! sourced) {
+        if (!sourced) {
             source();
             sourced = true;
         }
     };
-
-    const ev = `
-const name = prompt('What is your name? ');
-console.log(\`Hello \${name}!\`);
-`
-
-    //eval(ev);
 });
 
 function source() {
-    let source = new Request('docs-demonstration.md');
     let url = window.location.href;
     url = url.split('/');
     url = url[url.length - 1];
     url = url.replace('html', 'md');
-    source = url;
+    const source = url;
 
-    const source_container = document.createElement('div');
-    const source_header = document.createElement('h2');
-    source_header.innerText = 'Source';
-    source_header.id = source_header.innerText.toLowerCase();
-    source_container.id = 'source_container';
-    document.getElementsByTagName('body')[0].appendChild(source_container);
-    source_container.before(source_header);
+    const sourceContainer = document.createElement('div');
+    sourceContainer.id = 'sourceContainer';
+    document.getElementsByTagName('body')[0].appendChild(sourceContainer);
+
+    const sourceHeader = document.createElement('h2');
+    sourceHeader.innerText = 'Source';
+    sourceHeader.id = sourceHeader.innerText.toLowerCase();
+    sourceContainer.before(sourceHeader);
 
     fetch(source)
         .then(response => response.text())
         .then(data => {
-            let editor = CodeMirror(source_container, {
+            const editor = CodeMirror(sourceContainer, {
                 value: data,
                 mode:  "markdown",
                 theme: "dracula",
@@ -63,48 +50,60 @@ function source() {
                 lineWrapping: true,
             });
 
-            // compile/run button
+            // Compile/run button.
             let buttons = document.createElement('div');
             buttons.className ='buttons';
 
             let run = document.createElement('button');
             run.textContent = '▶';
             run.onclick = (element) => {
-                Docs.termInit(element.target);
+                termInit(element.target);
             }
             buttons.appendChild(run);
 
-            let child = source_container.childNodes[0];
-            source_container.insertBefore(buttons, child);
+            const child = sourceContainer.childNodes[0];
+            sourceContainer.insertBefore(buttons, child);
         });
 }
 
+function convertToCm(mode) {
+    if (mode == 'c') {
+       return 'text/x-csrc';
+    }
+    else if (mode == 'c++' || mode == 'cpp') {
+        return 'text/x-c++src';
+    }
+    else if (mode == 'java') {
+        return 'text/x-java';
+    }
+    return mode;
+}
+
+function convertFromCm(mode) {
+
+    if (mode == 'text/x-csrc') {
+       return 'c'
+    }
+    else if (mode == 'text/x-c++src') {
+        return 'c++';
+    }
+    else if (mode == 'text/x-java') {
+        return 'java';
+    }
+    return mode;
+}
+
 // markdown -> html -> codemirror converters
-function pandoc_to_codemirror() {
+function pandocToCodemirror() {
     let i = 1;
 
     // cb = "codeblock"
     let identifier = document.getElementById(`cb${i}`);
-    console.log('identifier:', identifier);
     while (identifier) {
         let myTextArea = identifier.childNodes[0];
 
         // mode
-        let mode = myTextArea.classList[1];
-        let domain;
-        if (myTextArea.classList[2]) {
-            domain = myTextArea.classList[2];
-        }
-        console.log('myTextArea:', myTextArea.classList);
-        if (mode == 'c') {
-            mode = 'text/x-csrc';
-        }
-        else if (mode == 'c++' || mode == 'cpp') {
-            mode = 'text/x-c++src';
-        }
-        else if (mode == 'java') {
-            mode = 'text/x-java';
-        }
+        let mode = convertToCm(myTextArea.classList[1]);
 
         // codemirror
         let editor = CodeMirror(function(elt) {
@@ -117,15 +116,6 @@ function pandoc_to_codemirror() {
             viewportMargin: Infinity,
             lineWrapping: true,
         });
-
-        if (mode === 'javascript' && domain === 'browser') {
-            console.log('javascript mode.');
-            editor.domain = 'browser';
-        }
-
-        console.log('identifier:', identifier);
-        console.log('mode:', mode);
-        console.log('editor:', editor);
 
         // compile/run button
         if (myTextArea.classList.contains('norun')) {
@@ -140,7 +130,7 @@ function pandoc_to_codemirror() {
         let run = document.createElement('button');
         run.textContent = '▶';
         run.onclick = (element) => {
-            Docs.termInit(element.target);
+            termInit(element.target);
         }
         buttons.appendChild(run);
 
@@ -152,92 +142,28 @@ function pandoc_to_codemirror() {
     }
 }
 
-function jekyll_to_codemirror() {
-
-}
-
-function org_to_codemirror() {
-
-}
-
-// starts up the websocket
+// Starts up the websocket.
 function termInit(element) {
-    console.log('element:', element);
-    let ed_parent = element.parentNode.parentNode;
-    let ed = element.parentNode.parentNode.childNodes[1].CodeMirror;
-    let code = ed.getValue();
+    const edParent = element.parentNode.parentNode;
+    const ed = element.parentNode.parentNode.childNodes[1].CodeMirror;
+    const code = ed.getValue();
 
-    let language = ed.getOption('mode');
-    console.log('language:', language);
-    let domain = ed.domain;
-    console.log('domain:', domain);
-    let terminal;
+    const lang = convertFromCm(ed.getOption('mode'));
+    const domain = ed.domain;
+    let elem = edParent.querySelector('#terminal');
 
-    if (! ed_parent.querySelector('#terminal')) {
-        terminal = document.createElement('div');
-        terminal.id = 'terminal';
-        console.log('terminal:', terminal);
-
-        let terminals = document.createElement('pre');
-        terminals.className = 'terminals';
-        terminals.tabindex = 0;
-        terminals.contentEditable = true;
-
-        terminal.appendChild(terminals);
-        ed_parent.appendChild(terminal);
-        console.log('terminal:', terminal);
-        terminal = terminal.childNodes[0];
-    }
-    else {
-        terminal = ed_parent.querySelector('#terminal').childNodes[0]
+    if (!elem) {
+        elem = document.createElement('div');
+        elem.id = 'terminal';
+        edParent.appendChild(elem);
     }
 
     let args = {
-        mode: 'code',
+        lang: lang,
         code: code,
-        language: language,
-        terminal: terminal,
-        domain, domain,
+        elem: elem,
     }
 
     bootup(args);
 }
 
-
-function openBuffer(name, text, mode) {
-  buffers[name] = CodeMirror.Doc(text, mode);
-  var opt = document.createElement("option");
-  opt.appendChild(document.createTextNode(name));
-  sel_top.appendChild(opt);
-}
-
-function newBuf(where) {
-  var name = prompt("Name for the buffer", "*scratch*");
-  if (name == null) return;
-  if (buffers.hasOwnProperty(name)) {
-    alert("There's already a buffer by that name.");
-    return;
-  }
-  openBuffer(name, "", "javascript");
-  selectBuffer(where == "top" ? ed_top : ed_bot, name);
-  sel.value = name;
-}
-
-function selectBuffer(editor, name) {
-  var buf = buffers[name];
-  if (buf.getEditor()) buf = buf.linkedDoc({sharedHist: true});
-  var old = editor.swapDoc(buf);
-  var linked = old.iterLinkedDocs(function(doc) {linked = doc;});
-  if (linked) {
-    // Make sure the document in buffers is the one the other view is looking at
-    for (var name in buffers) if (buffers[name] == old) buffers[name] = linked;
-    old.unlinkDoc(linked);
-  }
-  editor.focus();
-}
-
-function nodeContent(id) {
-  var node = document.getElementById(id), val = node.textContent || node.innerText;
-  val = val.slice(val.match(/^\s*/)[0].length, val.length - val.match(/\s*$/)[0].length) + "\n";
-  return val;
-}
