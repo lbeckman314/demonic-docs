@@ -1,1 +1,1 @@
-../demonic-web/web.bundle.js
+../demo-web/web.bundle.js

@@ -8,7 +8,6 @@ import 'codemirror/mode/python/python.js';
 import 'codemirror/mode/ruby/ruby.js';
 import 'codemirror/mode/rust/rust.js';
 import 'codemirror/theme/dracula.css';
-
 import {bootup} from './web.bundle.js';
 
 document.addEventListener("DOMContentLoaded", () => {
