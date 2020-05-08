@@ -6,7 +6,7 @@ module.exports = {
     },
     output: {
         path: __dirname,
-        filename: './[name].bundle.js',
+        filename: './demo-[name].bundle.js',
         library: "Docs",
         libraryTarget: "umd",
         chunkFilename: '[name]-[chunkhash].js'
