@@ -1,17 +1,18 @@
-![demonic logo](./demonic.png)
+![demonic logo](./assets/demonic.png)
 
-# demonic docs
+# demonic-docs
 
 Demonic documentation for running code snippets in a sandboxed environment.
 
-[![docs](./docs.png)](https://demo.liambeckman.com/docs.html)
+Try it out at [liambeckman.com/code/demonic](https://liambeckman.com/code/demonic).
+
+[![demonic in action](./assets/demonic-web.png)](https://liambeckman.com/code/demonic)
 
 # Installation
 
 ```sh
-# get code
-git clone https://github.com/lbeckman314/demo-docs
-cd demo-docs
+git clone https://github.com/lbeckman314/demonic-docs
+cd demonic-docs
 
 # install dependencies
 npm install
@@ -20,11 +21,14 @@ npm install
 npm run build
 ```
 
-Then you can use your favorite browser to open 'docs.html'. Each code snippet should be editable and runnable.
+Then you can use your favorite browser to open `sites/docs.html`. Each code snippet should be editable and runnable.
 
-To convert the default 'docs.md' file to a new 'docs.html' file, enter:
+![demonic-docs](./assets/demonic-docs.png)
+
+To convert the default `docs.md` file to a new `docs.html` file, enter:
 
 ```sh
+cd site
 pandoc -f markdown -t html -s docs.md -o docs.html -H head.html
 ```
 
@@ -32,6 +36,6 @@ pandoc -f markdown -t html -s docs.md -o docs.html -H head.html
 
 ```sh
 # remove this directory
-rm -rfI demo-docs
+rm -rfI demonic-docs
 ```
 

@@ -2,18 +2,22 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        docs: './demo-docs.js',
+        docs: './src/demonic-docs.js',
     },
     output: {
         path: __dirname,
-        filename: './demo-[name].bundle.js',
-        library: "Docs",
-        libraryTarget: "umd",
-        chunkFilename: '[name]-[chunkhash].js'
+        filename: './dist/demonic-[name].bundle.js',
+        library: 'DemonicDocs',
+        libraryTarget: 'umd',
+        chunkFilename: '[name]-[chunkhash].js',
+        globalObject: 'this',
+    },
+    watchOptions: {
+        poll: true
     },
     target: 'web',
     watch: false,
-    devtool: "eval-source-map",
+    devtool: 'eval-source-map',
     devServer: {
         port: 5000
     },
