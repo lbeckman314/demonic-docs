@@ -52,18 +52,23 @@ function run(args) {
 // markdown -> html -> codemirror converters
 function pandocToCm(run) {
     let codeblocks = Array.from(document.getElementsByClassName('sourceCode'))
-        .filter(e => e.tagName == 'PRE');
+                          .filter(e => e.tagName == 'PRE');
     codeblocks.forEach(codeblock => {
-        let code = codeblock.innerText;
-        let lang = convertToCodemirror(codeblock.childNodes[0].classList[1]);
+        let code = Array.from(codeblock.querySelectorAll('.sourceCode'))
+                        .filter(e => e.tagName == 'CODE')[0]
+                        .innerText;
+        let lang = convertToCodemirror(codeblock.classList[1]);
         createEditor(code, lang, codeblock, run);
     });
 }
 
 function jekyllToCm(run) {
-    let codeblocks = Array.from(document.getElementsByClassName('highlighter-rouge'));
+    let codeblocks = Array.from(document.getElementsByClassName('highlighter-rouge'))
+                          .filter(e => e.tagName == 'DIV');
     codeblocks.forEach(codeblock => {
-        let code = codeblock.innerText;
+        let code = Array.from(codeblock.querySelectorAll('.highlight'))
+                        .filter(e => e.tagName == 'PRE')[0]
+                        .innerText;
         let lang = convertToCodemirror(codeblock.classList[0].replace(/.*-/, ''));
         createEditor(code, lang, codeblock, run);
     });
