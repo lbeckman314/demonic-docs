@@ -6,10 +6,6 @@
     height: 10em;
 }
 
-.hide {
-    visibility: hidden;
-}
-
 .copyMsg {
     color: #fff;
     background-color: #333;
@@ -29,9 +25,5 @@ div.sourceCode {
 .CodeMirror {
     border: 1px solid #eee;
     height: auto;
-}
-
-#status {
-    display: none;
 }
 

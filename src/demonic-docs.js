@@ -38,40 +38,58 @@ function run(args) {
     const run = (typeof args.run == 'undefined') ? true : args.run;
 
     document.addEventListener("DOMContentLoaded", () => {
+        let objs;
+
         switch(args.mode) {
             case 'jekyll':
-                jekyllToCm(run);
+                objs = jekyllToCm();
                 break;
             case 'pandoc':
-                pandocToCm(run);
+                objs = pandocToCm();
                 break;
         }
+
+        objs.forEach(obj => createEditor(obj.code, obj.lang, obj.node, run, args.url));
     });
 }
 
 // markdown -> html -> codemirror converters
-function pandocToCm(run) {
-    let codeblocks = Array.from(document.getElementsByClassName('sourceCode'))
-                          .filter(e => e.tagName == 'PRE');
-    codeblocks.forEach(codeblock => {
-        let code = Array.from(codeblock.querySelectorAll('.sourceCode'))
+function pandocToCm() {
+    let objs = [];
+    let nodes = Array.from(document.getElementsByClassName('sourceCode'))
+                     .filter(e => e.tagName == 'PRE');
+    nodes.forEach(node => {
+        let code = Array.from(node.querySelectorAll('.sourceCode'))
                         .filter(e => e.tagName == 'CODE')[0]
                         .innerText;
-        let lang = convertToCodemirror(codeblock.classList[1]);
-        createEditor(code, lang, codeblock, run);
+        let lang = convertToCodemirror(node.classList[1]);
+        objs.push({
+            node: node,
+            code: code,
+            lang: lang,
+        });
     });
+
+    return objs;
 }
 
-function jekyllToCm(run) {
-    let codeblocks = Array.from(document.getElementsByClassName('highlighter-rouge'))
-                          .filter(e => e.tagName == 'DIV');
-    codeblocks.forEach(codeblock => {
-        let code = Array.from(codeblock.querySelectorAll('.highlight'))
+function jekyllToCm() {
+    let objs = [];
+    let nodes = Array.from(document.getElementsByClassName('highlighter-rouge'))
+                     .filter(e => e.tagName == 'DIV');
+    nodes.forEach(node => {
+        let code = Array.from(node.querySelectorAll('.highlight'))
                         .filter(e => e.tagName == 'PRE')[0]
                         .innerText;
-        let lang = convertToCodemirror(codeblock.classList[0].replace(/.*-/, ''));
-        createEditor(code, lang, codeblock, run);
+        let lang = convertToCodemirror(node.classList[0].replace(/.*-/, ''));
+        objs.push({
+            node: node,
+            code: code,
+            lang: lang,
+        });
     });
+
+    return objs;
 }
 
 function shouldRun(element, run) {
@@ -84,7 +102,7 @@ function shouldRun(element, run) {
     return run;
 }
 
-function createEditor(code, lang, element, run) {
+function createEditor(code, lang, element, run, url) {
     if (!shouldRun(element, run))
         return;
 
@@ -132,7 +150,7 @@ function createEditor(code, lang, element, run) {
 
         extraKeys: {
             "Ctrl-Enter": (cm) => {
-                runCode(cm, cm.getWrapperElement().closest('.demonic-docs'))
+                runCode(cm, cm.getWrapperElement().closest('.demonic-docs'), url)
             }
         }
     });
@@ -147,7 +165,7 @@ function createEditor(code, lang, element, run) {
     };
 
     runBtn.onclick = (e) => {
-        runCode(codeMirror, e.target.closest('.demonic-docs'));
+        runCode(codeMirror, e.target.closest('.demonic-docs'), url);
     }
 }
 
@@ -163,7 +181,7 @@ function copy(text){
     tmp.remove();
 }
 
-function runCode(codeMirror, element) {
+function runCode(codeMirror, element, url) {
     // Language
     let lang = convertFromCodemirror(codeMirror.getOption('mode'));
 
@@ -192,8 +210,9 @@ function runCode(codeMirror, element) {
         data: codeMirror.getValue(),
         elem: terminal,
         userPrompt: userPrompt,
-        url: 'ws://localhost:8181',
+        url: url,
         write: false,
+        statusBar: false,
     });
 
     element.demonicWeb = demonicWeb;
