@@ -1,6 +1,6 @@
 {
     "name": "demonic-docs",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Demonic documentation for running code snippets in a sandboxed environment.",
     "license": "Apache-2.0",
     "main": "src/demonic-docs.js",
