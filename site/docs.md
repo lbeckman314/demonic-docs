@@ -220,31 +220,7 @@ Markdown files converted by [Pandoc](https://pandoc.org/) are the only supported
 - Being able to switch modes for each buffer. This should be made a little easier by CodeMirror's [ability](https://codemirror.net/demo/changemode.html) to do just that.
 - Having the option to run the code block converter from the command line i.e. not only at "runtime" as it currently does).
 - Having the option to choose between [CodeMirror](https://codemirror.net/) and [Ace](https://ace.c9.io/) for the online editors.
-- If you have any other suggestions, let me know at [this](https://github.com/lbeckman314/demonic/issues) issue reporter or by e-mail. I'm available at [liam@liambeckman.com](mailto:liam@liambeckman.com) : )
+- If you have any other suggestions, let me know at [this](https://github.com/lbeckman314/demonic-server/issues) issue reporter or by e-mail. I'm available at [liam@liambeckman.com](mailto:liam@liambeckman.com) : )
 
 Adding support requires playing around with the resulting DOM structure of each converter and file type, and being able to extract the `language` and `code` of each code block.
 
----
-
-The command to convert `docs.md` to `docs.html` is:
-
-```{.sh .norun}
-pandoc -f markdown -t html -s docs.md -o docs.html -H header.html
-```
-
-## Markdown
-```markdown
----
-title: Oregon Mountains
----
-
-Some *moutains* in **Oregon** include:
-
-- Mt. Hood
-- Mt. Jefferson
-- The Three Sisters
-```
-
-You can even edit this page's source and compile a whole new document! Give it a go by selecting the 'Edit Source' button and then clicking the '▶' button below [Source](#source).
-
-<button id="edit-source">Edit Source</button>

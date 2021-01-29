@@ -255,25 +255,8 @@
 <li>Being able to switch modes for each buffer. This should be made a little easier by CodeMirror’s <a href="https://codemirror.net/demo/changemode.html">ability</a> to do just that.</li>
 <li>Having the option to run the code block converter from the command line i.e. not only at “runtime” as it currently does).</li>
 <li>Having the option to choose between <a href="https://codemirror.net/">CodeMirror</a> and <a href="https://ace.c9.io/">Ace</a> for the online editors.</li>
-<li>If you have any other suggestions, let me know at <a href="https://github.com/lbeckman314/demonic/issues">this</a> issue reporter or by e-mail. I’m available at <a href="mailto:liam@liambeckman.com">liam@liambeckman.com</a> : )</li>
+<li>If you have any other suggestions, let me know at <a href="https://github.com/lbeckman314/demonic-server/issues">this</a> issue reporter or by e-mail. I’m available at <a href="mailto:liam@liambeckman.com">liam@liambeckman.com</a> : )</li>
 </ul>
 <p>Adding support requires playing around with the resulting DOM structure of each converter and file type, and being able to extract the <code>language</code> and <code>code</code> of each code block.</p>
-<hr />
-<p>The command to convert <code>docs.md</code> to <code>docs.html</code> is:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode sh norun"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="ex">pandoc</span> -f markdown -t html -s docs.md -o docs.html -H header.html</span></code></pre></div>
-<h2 id="markdown">Markdown</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true"></a><span class="an">title:</span><span class="co"> Oregon Mountains</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true"></a><span class="co">---</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true"></a>Some *moutains* in **Oregon** include:</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true"></a><span class="ss">- </span>Mt. Hood</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true"></a><span class="ss">- </span>Mt. Jefferson</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true"></a><span class="ss">- </span>The Three Sisters</span></code></pre></div>
-<p>You can even edit this page’s source and compile a whole new document! Give it a go by selecting the ‘Edit Source’ button and then clicking the ‘▶’ button below <a href="#source">Source</a>.</p>
-<button id="edit-source">
-Edit Source
-</button>
 </body>
 </html>
