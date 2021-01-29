@@ -80,24 +80,6 @@ public class Hello {
 }
 ```
 
-## JavaScript (Browser)
-
-```{.javascript .browser}
-function greet() {
-    let heading = document.querySelector('#javascript-browser');
-    if (! heading.querySelector('#dom')) {
-        let message = document.createElement("span");
-        message.innerHTML = " → I can interact with the DOM.";
-        message.id = "dom"
-        heading.appendChild(message);
-    }
-    const name = prompt('What is your name? ', 'Mysterious stranger');
-    return `Hello ${name}!\n`;
-}
-
-greet();
-```
-
 ## JavaScript (Node.js)
 
 ```javascript
